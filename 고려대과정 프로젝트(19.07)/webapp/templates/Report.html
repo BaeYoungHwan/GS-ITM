@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html style="background-color: #ffffff">
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title> Report </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+      <style>
+
+
+table {
+    width: 100%;
+    border: 2px solid #444444;
+  }
+  th, td {
+    border: 1px solid #444444;
+      font-size: 20px;
+  }
+
+          canvas.myChart {
+              width: 100px;
+              height: 200px;
+          }
+      </style>
+
+
+  </head>
+  <body>
+  <div>
+
+    <h1 style="font-size: 600%; margin-top: 50px; font-family: MD개성체; text-align:center"> 영등포구 보고서 </h1>
+      <div style="background-color: #ffffff; margin-bottom: 50px; max-width: 100%; display: block; height: 900px; width: 80%; position: absolute; top: 200px; right: 10%; border: 3px solid black;">
+        <canvas id="myChart" style="max-width: 500px; display: block; height: 300px; width: 450px;  position: absolute; top: 70px; right: 60%;"></canvas>
+        <canvas id="barChart" style="max-width: 500px; display: block; height: 300px; width: 450px;  position: absolute; top: 450px; right: 60%;"></canvas>
+        <canvas id="pieChart"style="max-width: 500px; display: block; height: 300px; width: 450px;  position: absolute; top: 450px; right: 20%;"></canvas>
+        <div class="container" style="max-width: 500px; display: block; height: 300px; width: 450px;  position: absolute; top: 70px; right: 21%;">
+            <table>
+                <h4 align="center">경제가치산출</h4>
+
+                <tr>
+                    <td bgcolor="#DFF5E5">탄소절감비</td>
+                    <td> 임의값</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#f5e5df">대기정화비</td>
+                    <td>임의값</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#e5dff5">연료절감비</td>
+                    <td>임의값</td>
+                </tr>
+                <tr>
+                    <td	bgcolor="#F4F5DF">전력절감비</td>
+                    <td>임의값</td>
+                </tr>
+                <tr>
+                    <td	bgcolor="#EFDFF5">강수함량비</td>
+                    <td>임의값</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+  </div>
+    <script>
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+            axisY:{minimum: 50,
+   maximum: 50,
+ },
+          data: {
+            labels: [ "탄소농도(ppm/10)", "미세먼지(㎍/㎥)", "평균기온(˚C)", "연강수량(cm/10)"],
+            datasets: [{
+              label: '환경지표',
+              data: [36.8, 32, 27, 13.3],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255,53,88)',
+                'rgb(34,150,235)',
+                'rgb(255,192,51)',
+                'rgb(34,189,192)',
+                'rgb(119,55,255)',
+                'rgb(255,131,36)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                    suggestedMin: 10, suggestedMax: 50,
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+
+
+
+        var cta = document.getElementById("barChart").getContext('2d');
+        var myChart = new Chart(cta, {
+
+          type: 'bar',
+
+          data: {
+            labels: ["탄소저감(ppm/10)", "대기정화(㎍/㎥)", "온도조절(˚C)", "배수효과(cm/10)"],
+                           ymax: 50,
+                ymin: 40,
+            datasets: [{
+              label: '베네핏량',
+              data: [16.2, 13, 3.1, 4.3],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255,53,88)',
+                'rgb(34,150,235)',
+                'rgb(255,192,51)',
+                'rgb(34,189,192)',
+                'rgb(119,55,255)',
+                'rgb(255,131,36)'
+              ],
+                ymax: 50,
+                ymax: 40,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                    suggestedMin: 10, suggestedMax: 50,
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+
+        var ctxP = document.getElementById("pieChart").getContext('2d');
+            var myPieChart = new Chart(ctxP, {
+              type: 'pie',
+              data: {
+                labels: ["은행나무","버즘나무","느티나무","벚나무","소나무","단풍나무","회화나무","메타세쿼이아","중국단풍","기 타"],
+                datasets: [{
+                  data: [10319, 8068, 3871, 2884, 1097, 1062, 506, 382, 380, 2168],
+                  backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#F9F506", "#15E8EF", "#8258FA" , "#04B404" , "#6E105A" , "#8B1517", ,"#C3C033"],
+                  hoverBackgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#F9F506", "#15E8EF", "#8258FA" , "#04B404" , "#6E105A" , "#8B1517", ,"#C3C033"]
+                }]
+              },
+              options: {
+                responsive: true
+              }
+        });
+
+
+    </script>
+
+
+
+
+
+  </body>
+</html>
